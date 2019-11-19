@@ -11,15 +11,13 @@ const BASE_URL = "https://petdibs.herokuapp.com/pets/";
 const listPets = () => {
   axios
     .get(BASE_URL)
-    .catch(error => {
-      return setError(error);
-    })
     .then(response => {
       return setResult(response.data);
-    })
-    .finally(() => {
-      console.log("this is my finally. It always shows and is just for fun");
+        })
+    .catch(error => {
+      return setError("Invalid Input");
     });
+    
 };
 
 
@@ -41,12 +39,16 @@ const showDetails = (selectedPet) => {
   });
 
 }
+
+
   // Fill out as part of Wave 2.
+
 
 const removePet = (selectedPet) => {
   if (!selectedPet) {
     setError("You tried to remove a pet without selecting it!");
     return;
+    }
   
   axios.delete(BASE_URL+selectedPet)
   .then((response) => {
