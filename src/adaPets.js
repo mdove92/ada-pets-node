@@ -9,8 +9,19 @@ const BASE_URL = "https://petdibs.herokuapp.com/pets/";
 
 // Option functions.
 const listPets = () => {
-  // Fill out as part of Wave 1.
-}
+  axios
+    .get(BASE_URL)
+    .catch(error => {
+      return setError(error);
+    })
+    .then(response => {
+      return setResult(response.data);
+    })
+    .finally(() => {
+      console.log("this is my finally");
+    });
+};
+
 
 const showDetails = (selectedPet) => {
   if (!selectedPet) {
@@ -18,20 +29,61 @@ const showDetails = (selectedPet) => {
     return;
   }
 
-  // Fill out as part of Wave 2.
+
+    axios.get(BASE_URL+selectedPet)
+  .then((response) => {
+    return setResult(response.data);
+  })
+  
+  
+    .catch((error) => {
+      return setError("Failed, details required" + error);
+  });
+
 }
+
+
+  // Fill out as part of Wave 2.
+
 
 const removePet = (selectedPet) => {
   if (!selectedPet) {
     setError("You tried to remove a pet without selecting it!");
     return;
   }
-
+  if (!selectedPet) {
+    setError("You tried to remove a pet without selecting it!");
+    return;
+  }
+  if (!selectedPet) {
+    setError("You tried to remove a pet without selecting it!");
+    return;
+  }
+  
+  axios.delete(BASE_URL+selectedPet)
+  .then((response) => {
+    return setResult("Success");
+  })
+    .catch((error) => {
+      return setError(`/remove/${selectedPet} /failed/${selectedPet}`);
+  });
   // Fill out as part of Wave 3.
 }
 
 const addPet = (petInfo) => {
   // Fill out as part of Wave 4.
+  if (!petInfo) {
+    setError("You tried to create a pet with nothing!");
+    return;
+  }
+  
+  axios.post(BASE_URL, petInfo)
+  .then((response) => {
+    return setResult(petInfo);
+  })
+    .catch((error) => {
+      return setError(`/add/ /failed/`);
+  });
 }
 
 // Use Node-style exports to export functions for tests and main.
